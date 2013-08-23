@@ -1,0 +1,31 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+
+    <form action="{{ path('cuenta_create') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        
+        <label for="">Número de Cuotas</label>
+        <input type="number" name="cant_cuotas" id="cant_cuotas" />
+        <br />
+        <label for="">Primera Cuota</label>
+        <input type="date" name="primer_vencimiento" id="primer_vencimiento" />
+        <small>De aqui se sacaran los días de pagos</small>
+        <br />
+        <label for="">Monto</label>
+        <input type="number" name="cuota_monto" id="cuota_monto" />
+        
+        
+        <p>
+            <button type="submit">Create</button>
+        </p>
+    </form>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('cuenta') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

@@ -1,0 +1,30 @@
+cuenta:
+    pattern:  /
+    defaults: { _controller: "ControlBundle:Cuenta:index" }
+
+cuenta_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ControlBundle:Cuenta:show" }
+
+cuenta_new:
+    pattern:  /new
+    defaults: { _controller: "ControlBundle:Cuenta:new" }
+
+cuenta_create:
+    pattern:  /create
+    defaults: { _controller: "ControlBundle:Cuenta:create" }
+    requirements: { _method: post }
+
+cuenta_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ControlBundle:Cuenta:edit" }
+
+cuenta_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ControlBundle:Cuenta:update" }
+    requirements: { _method: post|put }
+
+cuenta_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ControlBundle:Cuenta:delete" }
+    requirements: { _method: post|delete }

@@ -1,0 +1,30 @@
+tipocuenta:
+    pattern:  /
+    defaults: { _controller: "ControlBundle:Tipocuenta:index" }
+
+tipocuenta_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ControlBundle:Tipocuenta:show" }
+
+tipocuenta_new:
+    pattern:  /new
+    defaults: { _controller: "ControlBundle:Tipocuenta:new" }
+
+tipocuenta_create:
+    pattern:  /create
+    defaults: { _controller: "ControlBundle:Tipocuenta:create" }
+    requirements: { _method: post }
+
+tipocuenta_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ControlBundle:Tipocuenta:edit" }
+
+tipocuenta_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ControlBundle:Tipocuenta:update" }
+    requirements: { _method: post|put }
+
+tipocuenta_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ControlBundle:Tipocuenta:delete" }
+    requirements: { _method: post|delete }
