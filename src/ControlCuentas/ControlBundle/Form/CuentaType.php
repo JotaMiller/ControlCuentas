@@ -15,11 +15,23 @@ class CuentaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre')
-            ->add('descripcion')
-            ->add('usuario')
-            ->add('categoria')
-            ->add('tipocuenta');
+                ->add('tipocuenta')
+                ->add('categoria')
+                ->add('nombre')
+                ->add('descripcion')
+                ->add('usuario')
+                ->add('cantidadCotas', 'text', array(
+                    'label' => 'Numero de Cuotas',
+                    'mapped' => false
+                ))
+                ->add('fechaPrimeraCuota', 'date', array(
+                    'mapped' => false,
+                    'widget' =>'single_text'
+                ))
+                ->add('montoCuota','number',array(
+                    'mapped' => false,
+                ))
+                ;
     }
 
     /**

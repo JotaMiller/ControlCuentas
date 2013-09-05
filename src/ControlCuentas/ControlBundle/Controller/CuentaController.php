@@ -37,9 +37,10 @@ class CuentaController extends Controller
     {
         $entity  = new Cuenta();
         $form = $this->createForm(new CuentaType(), $entity);
-        $form->submit($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
+//            ldd($form->get('montoCuota')->getData());
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
