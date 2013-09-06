@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new ControlCuentas\ControlBundle\ControlBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new RaulFraile\Bundle\LadybugBundle\RaulFraileLadybugBundle(),
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

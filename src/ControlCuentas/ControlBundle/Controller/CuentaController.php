@@ -40,7 +40,14 @@ class CuentaController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-//            ldd($form->get('montoCuota')->getData());
+            $tipoCuenta =   $form->get('tipocuenta')->getData();
+            
+            if ($tipoCuenta->getId() == 1){
+                $this->crearCuentaPlazoFijo();
+            }else{
+                $this->crearCuentaIndefinida();
+            }
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -52,6 +59,25 @@ class CuentaController extends Controller
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
+    }
+    
+    /**
+     * Crea las cuentas con Plazo Fijo
+     * 
+     */
+    private function crearCuentaPlazoFijo()
+    {
+        
+    }
+    
+    
+    /**
+     * Crea las cuentas que no tienen fecha de vencimiento
+     * 
+     */
+    private function crearCuentaIndefinida()
+    {
+        
     }
 
     /**

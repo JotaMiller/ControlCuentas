@@ -1,9 +1,9 @@
 <?php
-
 namespace ControlCuentas\ControlBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc as ApiDoc;
 
 use ControlCuentas\ControlBundle\Entity\Categoria;
 use ControlCuentas\ControlBundle\Form\CategoriaType;
@@ -17,18 +17,23 @@ class CategoriaController extends Controller
 
     /**
      * Lists all Categoria entities.
-     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Lista todas las categorias"
+     * )
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('ControlBundle:Categoria')->findAll();
+        $usuario = $this->getUser();
+        
+        $entities = $em->getRepository('ControlBundle:Categoria')->findByUsuario($usuario->getId());
 
         return $this->render('ControlBundle:Categoria:index.html.twig', array(
             'entities' => $entities,
         ));
     }
+    
     /**
      * Creates a new Categoria entity.
      *
@@ -36,11 +41,14 @@ class CategoriaController extends Controller
     public function createAction(Request $request)
     {
         $entity  = new Categoria();
+        $usuario = $this->getUser();
+        
         $form = $this->createForm(new CategoriaType(), $entity);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setUsuario($usuario);
             $em->persist($entity);
             $em->flush();
 
@@ -75,11 +83,17 @@ class CategoriaController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $usuario = $this->getUser();
+            
         $entity = $em->getRepository('ControlBundle:Categoria')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Categoria entity.');
+        }
+        
+        // Solo mostrar los registros que le pertenecen al usuario
+        if ( $entity->getUsuario()->getId() != $usuario->getId() ){
+            throw $this->createNotFoundException('No se encuentra la categoria en sus registros');
         }
 
         $deleteForm = $this->createDeleteForm($id);

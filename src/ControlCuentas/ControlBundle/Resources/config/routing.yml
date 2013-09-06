@@ -1,5 +1,5 @@
 control_homepage:
-    pattern:  /hello/{name}
+    pattern:  /
     defaults: { _controller: ControlBundle:Default:index }
 
 ControlBundle_cuenta:
@@ -13,3 +13,7 @@ ControlBundle_categoria:
 ControlBundle_tipocuenta:
     resource: "@ControlBundle/Resources/config/routing/tipocuenta.yml"
     prefix: /tipocuenta
+    
+ControlBundle_usuario:
+    resource: "@ControlBundle/Resources/config/routing/usuario.yml"
+    prefix: /usuario

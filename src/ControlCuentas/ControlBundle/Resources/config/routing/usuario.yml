@@ -1,0 +1,9 @@
+usuario:
+    pattern: /
+    defaults: { _controller: "ControlBundle:Usuario:all" }
+    requirements: { _method: get }
+
+usuario_show:
+    pattern:  /{id}
+    defaults: { _controller: "ControlBundle:Usuario:get" }
+    requirements: { _method: get }
