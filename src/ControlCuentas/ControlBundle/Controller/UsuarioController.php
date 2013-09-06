@@ -15,11 +15,12 @@ use ControlCuentas\ControlBundle\Entity\Usuario;
 class UsuarioController extends Controller
 {
     /**
-     * Devuelve la información del usuario indicado
+     * Devuelve una lista de todos los usuarios registrados en el sistema
      * 
      * @ApiDoc(
      *  resource=true,
-     *  section="usuario"
+     *  section="API",
+     *  description="Lista de Todos los usuarios"
      * )
      */
     public function allAction()
@@ -42,7 +43,7 @@ class UsuarioController extends Controller
      * Devuelve la información del usuario indicado
      * 
      * @ApiDoc(
-     *  section="usuario"
+     *  section="API"
      * )
      */
     public function getAction( Request $request, $id )

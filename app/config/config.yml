@@ -72,4 +72,5 @@ fos_user:
     user_class: ControlCuentas\ControlBundle\Entity\Usuario
 
 #Api Documentación
-nelmio_api_doc: ~
+nelmio_api_doc:
+    name: Control de Cuentas API
