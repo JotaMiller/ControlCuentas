@@ -17,10 +17,7 @@ class CategoriaController extends Controller
 
     /**
      * Lists all Categoria entities.
-     * @ApiDoc(
-     *  resource=true,
-     *  description="Lista todas las categorias"
-     * )
+     * 
      */
     public function indexAction()
     {
