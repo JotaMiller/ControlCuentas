@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use ControlCuentas\ControlBundle\Entity\Cuenta;
 use ControlCuentas\ControlBundle\Form\CuentaType;
+use ControlCuentas\ControlBundle\Entity\Cuota;
 
 /**
  * Cuenta controller.
@@ -22,8 +23,9 @@ class CuentaController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('ControlBundle:Cuenta')->findAll();
+        $usuario = $this->getUser();
+        
+        $entities = $em->getRepository('ControlBundle:Cuenta')->findByUsuario($usuario->getId());
 
         return $this->render('ControlBundle:Cuenta:index.html.twig', array(
             'entities' => $entities,
@@ -36,20 +38,51 @@ class CuentaController extends Controller
     public function createAction(Request $request)
     {
         $entity  = new Cuenta();
+        $usuario = $this->getUser();
+        
         $form = $this->createForm(new CuentaType(), $entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $tipoCuenta =   $form->get('tipocuenta')->getData();
+            $em = $this->getDoctrine()->getManager();
+            
+            // Seteo de variables
+            $tipoCuenta         =   $form->get('tipocuenta')->getData();
+            
+            $numero_cuotas      =   $form->get('cantidadCuotas')->getData();
+            $monto_pactado      =   $form->get('montoCuota')->getData();
+            $fecha_vencimiento  =   $form->get('fechaPrimeraCuota')->getData();
+                                    
+//            ld($fecha_vencimiento->add(new \DateInterval('P12M')));
+            $entity->setUsuario($usuario);
+            $em->persist($entity);
             
             if ($tipoCuenta->getId() == 1){
-                $this->crearCuentaPlazoFijo();
+                // Cuenta plazo fijo
+                for ($i = 1; $i<= $numero_cuotas; $i++) {
+                    $cuota = new Cuota();
+                    $cuota->setCuenta($entity);
+                    $cuota->setMontoPactado($monto_pactado);
+                    $cuota->setFechaVencimiento($fecha_vencimiento);
+                    
+                    $fecha_vencimiento->add(new \DateInterval('P1M')); // +1 mes
+                    
+                    $em->persist($cuota);
+                    $em->flush();
+                }
             }else{
-                $this->crearCuentaIndefinida();
+                // Cuenta indefinida (Sin limite de 'Cuotas')
+                $cuota = new Cuota();
+                $cuota->setCuenta($entity);
+                $cuota->setMontoPactado($monto_pactado);
+                $cuota->setFechaVencimiento($fecha_vencimiento);
+                
+                //@TODO: en caso de que la cuenta tenga fecha anterior a la actual
+                // crear las cuentas necesarias hasta la fecha
+                $em->persist($cuota);
+                $em->flush();
             }
-            
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('cuenta_show', array('id' => $entity->getId())));
@@ -61,24 +94,6 @@ class CuentaController extends Controller
         ));
     }
     
-    /**
-     * Crea las cuentas con Plazo Fijo
-     * 
-     */
-    private function crearCuentaPlazoFijo()
-    {
-        
-    }
-    
-    
-    /**
-     * Crea las cuentas que no tienen fecha de vencimiento
-     * 
-     */
-    private function crearCuentaIndefinida()
-    {
-        
-    }
 
     /**
      * Displays a form to create a new Cuenta entity.

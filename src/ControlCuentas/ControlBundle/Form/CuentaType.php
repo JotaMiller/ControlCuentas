@@ -19,8 +19,7 @@ class CuentaType extends AbstractType
                 ->add('categoria')
                 ->add('nombre')
                 ->add('descripcion')
-                ->add('usuario')
-                ->add('cantidadCotas', 'text', array(
+                ->add('cantidadCuotas', 'integer', array(
                     'label' => 'Numero de Cuotas',
                     'mapped' => false
                 ))
@@ -28,7 +27,9 @@ class CuentaType extends AbstractType
                     'mapped' => false,
                     'widget' =>'single_text'
                 ))
-                ->add('montoCuota','number',array(
+                ->add('montoCuota','money',array(
+                    'currency' => false,
+                    'precision' => 0,
                     'mapped' => false,
                 ))
                 ;
