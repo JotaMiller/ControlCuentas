@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Cuota list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Monto_pactado</th>
+                <th>Monto_pagado</th>
+                <th>Fecha_vencimiento</th>
+                <th>Fecha_pago</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('cuota_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.montopactado }}</td>
+                <td>{{ entity.montopagado }}</td>
+                <td>{% if entity.fechavencimiento %}{{ entity.fechavencimiento|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.fechapago %}{{ entity.fechapago|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('cuota_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('cuota_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('cuota_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

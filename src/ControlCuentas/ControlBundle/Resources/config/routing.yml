@@ -17,3 +17,7 @@ ControlBundle_tipocuenta:
 ControlBundle_usuario:
     resource: "@ControlBundle/Resources/config/routing/usuario.yml"
     prefix: /usuario
+    
+ControlBundle_cuota:
+    resource: "@ControlBundle/Resources/config/routing/cuota.yml"
+    prefix: /cuota

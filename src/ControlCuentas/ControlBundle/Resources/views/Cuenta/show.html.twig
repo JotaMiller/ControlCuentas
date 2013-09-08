@@ -1,42 +1,48 @@
 {% extends '::base.html.twig' %}
 
+{% block header %}
+Detalle de cuenta
+{% endblock %}
+
 {% block body -%}
-    <h1>Cuenta</h1>
+{% for key,periodos in cuotas %}
+<div class="panel panel-default">
+    <div class="panel-heading">Cuotas pertenecientes al año <b>{{ key }}</b></div>
+    <div class="panel-body">
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ entity.nombre }}</td>
-            </tr>
-            <tr>
-                <th>Descripcion</th>
-                <td>{{ entity.descripcion }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('cuenta') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('cuenta_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('cuenta_delete', { 'id': entity.id }) }}" method="post">
-            <input type="hidden" name="_method" value="DELETE" />
+        {% for periodo in periodos %}
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    {{ periodo.fechaVencimiento|date('d') }} de {{ periodo.fechaVencimiento|date('F') }}
+                </div>
+                <div class="panel-body">
+                    <a href="{{ path('cuota_show',{ id: periodo.id }) }}" class="btn btn-default btn-block btn-xs">Ver Detalles</a>
+                    <a href="{{ path('cuota_show',{ id: periodo.id }) }}" class="btn btn-default btn-block btn-xs">Pagar</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endfor %}
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('cuenta') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('cuenta_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+        </li>
+        <li>
+            <form action="{{ path('cuenta_delete', { 'id': entity.id }) }}" method="post">
+                <input type="hidden" name="_method" value="DELETE" />
             {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    </ul>
 {% endblock %}

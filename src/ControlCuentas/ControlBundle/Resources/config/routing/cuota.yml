@@ -1,0 +1,30 @@
+cuota:
+    pattern:  /
+    defaults: { _controller: "ControlBundle:Cuota:index" }
+
+cuota_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ControlBundle:Cuota:show" }
+
+cuota_new:
+    pattern:  /new
+    defaults: { _controller: "ControlBundle:Cuota:new" }
+
+cuota_create:
+    pattern:  /create
+    defaults: { _controller: "ControlBundle:Cuota:create" }
+    requirements: { _method: post }
+
+cuota_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ControlBundle:Cuota:edit" }
+
+cuota_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ControlBundle:Cuota:update" }
+    requirements: { _method: post|put }
+
+cuota_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ControlBundle:Cuota:delete" }
+    requirements: { _method: post|delete }

@@ -119,7 +119,7 @@ class CuentaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('ControlBundle:Cuenta')->find($id);
-
+        $cuotas = $em->getRepository('ControlBundle:Cuota')->findAllOrdered($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Cuenta entity.');
         }
@@ -127,8 +127,9 @@ class CuentaController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('ControlBundle:Cuenta:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'entity'        => $entity,
+            'cuotas'        => $cuotas,
+            'delete_form'   => $deleteForm->createView(),        ));
     }
 
     /**

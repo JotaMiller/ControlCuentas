@@ -4,6 +4,7 @@ use Doctrine\ORM\Mapping AS ORM;
 
 /** 
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ControlCuentas\ControlBundle\Entity\CuentaRepository")
  */
 class Cuenta
 {

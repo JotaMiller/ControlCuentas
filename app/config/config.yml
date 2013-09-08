@@ -2,6 +2,12 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
 
+#Extensiones de twig...
+services:
+ twig.extension.text:
+     class: Twig_Extensions_Extension_Text
+     tags:
+         - { name: twig.extension }
 framework:
     #esi:             ~
     #translator:      { fallback: %locale% }
