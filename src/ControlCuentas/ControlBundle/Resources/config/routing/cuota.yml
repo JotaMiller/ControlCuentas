@@ -28,3 +28,12 @@ cuota_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "ControlBundle:Cuota:delete" }
     requirements: { _method: post|delete }
+
+cuota_ingresar_pago:
+    pattern: /{id}/ingresar-pago
+    defaults: { _controller: "ControlBundle:Cuota:ingresarPago" }
+    
+cuota_pagar:
+    pattern: /{id}/pagar
+    defaults: { _controller: "ControlBundle:Cuota:pagar" }
+    requirements: { _method: post }

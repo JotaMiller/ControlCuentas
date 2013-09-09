@@ -4,9 +4,9 @@ namespace ControlCuentas\ControlBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use ControlCuentas\ControlBundle\Entity\Cuota;
 use ControlCuentas\ControlBundle\Form\CuotaType;
+use ControlCuentas\ControlBundle\Form\CuotaPagarType;
 
 /**
  * Cuota controller.
@@ -26,9 +26,10 @@ class CuotaController extends Controller
         $entities = $em->getRepository('ControlBundle:Cuota')->findAll();
 
         return $this->render('ControlBundle:Cuota:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new Cuota entity.
      *
@@ -48,18 +49,18 @@ class CuotaController extends Controller
         }
 
         return $this->render('ControlBundle:Cuota:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a Cuota entity.
-    *
-    * @param Cuota $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a Cuota entity.
+     *
+     * @param Cuota $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(Cuota $entity)
     {
         $form = $this->createForm(new CuotaType(), $entity, array(
@@ -67,7 +68,10 @@ class CuotaController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array(
+            'label' => 'Crear',
+            'attr' => array('class' => 'btn btn-primary')
+        ));
 
         return $form;
     }
@@ -79,11 +83,11 @@ class CuotaController extends Controller
     public function newAction()
     {
         $entity = new Cuota();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('ControlBundle:Cuota:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -96,6 +100,7 @@ class CuotaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('ControlBundle:Cuota')->find($id);
+        $estado = $em->getRepository('ControlBundle:Cuota')->findEstado($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Cuota entity.');
@@ -104,8 +109,9 @@ class CuotaController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('ControlBundle:Cuota:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+                    'estado' => $estado,
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),));
     }
 
     /**
@@ -126,19 +132,19 @@ class CuotaController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('ControlBundle:Cuota:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Cuota entity.
-    *
-    * @param Cuota $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Cuota entity.
+     *
+     * @param Cuota $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Cuota $entity)
     {
         $form = $this->createForm(new CuotaType(), $entity, array(
@@ -150,6 +156,7 @@ class CuotaController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Cuota entity.
      *
@@ -175,11 +182,12 @@ class CuotaController extends Controller
         }
 
         return $this->render('ControlBundle:Cuota:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Cuota entity.
      *
@@ -214,10 +222,69 @@ class CuotaController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('cuota_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('cuota_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
+
+    /**
+     * Despliega el formulario para registrar el pago de vuentas
+     * 
+     */
+    public function ingresarPagoAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('ControlBundle:Cuota')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('No se encuentra cuota con id:' . $id);
+        }
+        
+        $form = $this->createForm(new CuotaPagarType(), $entity, array(
+            'action' => $this->generateUrl('cuota_pagar',array('id'=>$entity->getId())),
+            'method' => 'POST',
+        ));
+
+        return $this->render('ControlBundle:Cuota:pagar.html.twig', array(
+                    'form' => $form->createView(),
+                    'entity' => $entity
+        ));
+    }
+    
+    /**
+     * Graba el pago ingresado
+     * 
+     */
+    public function pagarAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $entity = $em->getRepository('ControlBundle:Cuota')->find($id);
+        
+        if ( !$entity ){
+            throw $this->createNotFoundException('No se encuentra cuota con id:' .$id );
+        }
+        
+        $form = $this->createForm(new CuotaPagarType(), $entity, array(
+            'action' => $this->generateUrl('cuota_pagar',array('id'=>$entity->getId())),
+            'method' => 'POST',
+        ));
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('cuenta_show', array('id' => $entity->getCuenta()->getId())));
+        }
+
+        return $this->render('ControlBundle:Cuota:edit.html.twig', array(
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
 }

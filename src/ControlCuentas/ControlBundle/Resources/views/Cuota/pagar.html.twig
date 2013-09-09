@@ -1,0 +1,48 @@
+{% extends '::base.html.twig' %}
+
+{% block header %}
+Pago de Cuota
+{% endblock %}
+
+{% block body %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Registro de Pago de Cuota</h3>
+    </div>
+    <div class="panel-body">
+        {{ form_start(form,{'attr':{'class':'form-horizontal','role':'form'}}) }}
+            <div class="form-group">
+                    {{ form_label(form.fecha_pago) }}
+                    <div class="col-lg-10">
+                            {{ form_errors(form.fecha_pago) }}
+                            {{ form_widget(form.fecha_pago) }}
+                            <span class="help-block">Fecha en la que realizó el pago.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.monto_pagado) }}
+                        <div class="col-lg-10">
+                            {{ form_errors(form.monto_pagado) }}
+                            {{ form_widget(form.monto_pagado) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.formapago) }}
+                        <div class="col-lg-10">
+                            {{ form_errors(form.formapago) }}
+                            {{ form_widget(form.formapago) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <button type="submit" class="btn btn-primary">Guardar el Pago</button>
+                            <a href="{{ path('cuenta_show',{id: entity.cuenta.id}) }}" class="btn btn-default">Volver a la Cuenta</a>
+                        </div>
+                    </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+                </div>
+            </div>
+{% endblock %}

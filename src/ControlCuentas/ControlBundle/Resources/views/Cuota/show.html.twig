@@ -1,39 +1,44 @@
 {% extends '::base.html.twig' %}
 
+{% block header %}
+Detalle de la Cuota
+{% endblock %}
 {% block body -%}
-<h1>Cuota</h1>
 
-<table class="record_properties">
-    <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>Monto_pactado</th>
-            <td>{{ entity.montopactado }}</td>
-        </tr>
-        <tr>
-            <th>Monto_pagado</th>
-            <td>{{ entity.montopagado }}</td>
-        </tr>
-        <tr>
-            <th>Fecha_vencimiento</th>
-            <td>{{ entity.fechavencimiento|date('Y-m-d H:i:s') }}</td>
-        </tr>
-        <tr>
-            <th>Fecha_pago</th>
-            <td>{{ entity.fechapago|date('Y-m-d H:i:s') }}</td>
-        </tr>
-    </tbody>
-</table>
-
-<a href="{{ path('cuenta_show',{id: entity.cuenta.id }) }}" class="btn btn-primary">
-    Volver a la Cuenta
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Cuota correspondiente al {{ entity.fechaVencimiento|date('d \\d\\e F \\d\\e\\l Y') }}</h3>
+    </div>
+    <div class="panel-body">
+        <h4>Resumen</h4>
+        <p>{{ estado }}</p>
+        <h4>Detalle</h4>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>Fecha Vencimiento</th>
+                <td>{{ entity.fechaVencimiento|date('d-m-Y') }}</td>
+            </tr>
+            <tr>
+                <th>Monto Pactado:</th>
+                <td>${{ entity.montoPactado|number_format(0,',','.') }}.-</td>
+            </tr>
+            {% if entity.montoPagado is not null %}
+            <tr>
+                <th>Monto Pagado:</th>
+                <td>{{ entity.montoPagado|number_format(0,',','.') }}</td>
+            </tr>
+            {% endif %}
+            {% if entity.fechaPago is not null %}
+            <tr>
+                <th>Fecha de Pago:</th>
+                <td>{{ entity.fechaPago|date('d-m-Y') }}</td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+</div>
+<a href="{{ path('cuota_ingresar_pago',{ id: entity.id }) }}" class="btn btn-primary" data-toggle="tooltip" title="Registra el pago de la cuota"><i class="icon-dollar"></i> Registrar Pago</a>
+<a href="{{ path('cuenta_show',{id: entity.cuenta.id }) }}" data-toggle="tooltip" title="Regresa a la vista general de la 'Cuenta'" class="btn btn-default">
+    <i class="icon-mail-reply"></i> Volver a la Cuenta
 </a>
-
-<a href="{{ path('cuota_edit', { 'id': entity.id }) }}" class="btn btn-default">Editar</a>
-</li>
-<li>{{ form(delete_form) }}</li>
-</ul>
 {% endblock %}

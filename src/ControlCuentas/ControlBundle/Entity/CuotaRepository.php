@@ -38,4 +38,17 @@ class CuotaRepository extends EntityRepository
 
         return $arrCuotas;
     }
+    
+    /**
+     * Devuelve el estado de la cuota
+     * 
+     * @param int $id id de la cuota
+     * @return string
+     */
+    public function findEstado()
+    {
+        $estado = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, quaerat autem sequi ratione soluta optio fuga! Facilis, amet, dolor velit alias eum nam necessitatibus nostrum voluptates architecto incidunt voluptas veniam!";
+        
+        return $estado;
+    }
 }

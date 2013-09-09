@@ -42,7 +42,12 @@ class Formapago
         $this->cuotas = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
-    /**
+    public function __toString()
+    {
+        return $this->nombre;
+    }
+
+        /**
      * Get id
      *
      * @return integer 
