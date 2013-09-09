@@ -11,8 +11,13 @@ web/css/*
 web/js/*
 web/uploads/*
 
+
+
+project.properties
+project.xml
 # -- Composer -----------------------------------------
 composer.phar
+composer.lock
 
 # -- PHPUnit ------------------------------------------
 app/phpunit.xml  
@@ -74,6 +79,7 @@ $RECYCLE.BIN/
 # Linux
 .*
 !.gitignore
+!.htaccess
 *~
 
 # Mac OS X
