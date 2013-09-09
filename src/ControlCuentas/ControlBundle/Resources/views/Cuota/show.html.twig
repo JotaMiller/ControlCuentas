@@ -25,7 +25,7 @@ Detalle de la Cuota
             {% if entity.montoPagado is not null %}
             <tr>
                 <th>Monto Pagado:</th>
-                <td>{{ entity.montoPagado|number_format(0,',','.') }}</td>
+                <td>${{ entity.montoPagado|number_format(0,',','.') }}-</td>
             </tr>
             {% endif %}
             {% if entity.fechaPago is not null %}

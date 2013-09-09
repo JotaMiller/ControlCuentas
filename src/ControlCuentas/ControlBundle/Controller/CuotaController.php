@@ -277,13 +277,12 @@ class CuotaController extends Controller
         if ($form->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('cuenta_show', array('id' => $entity->getCuenta()->getId())));
+            return $this->redirect($this->generateUrl('cuota_show', array('id' => $id )));
         }
 
-        return $this->render('ControlBundle:Cuota:edit.html.twig', array(
+        return $this->render('ControlBundle:Cuota:pagar.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+                    'edit_form' => $form->createView(),
         ));
     }
 
