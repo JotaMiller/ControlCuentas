@@ -236,13 +236,12 @@ class CuotaController extends Controller
     public function ingresarPagoAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('ControlBundle:Cuota')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('No se encuentra cuota con id:' . $id);
         }
-        
+
         $form = $this->createForm(new CuotaPagarType(), $entity, array(
             'action' => $this->generateUrl('cuota_pagar',array('id'=>$entity->getId())),
             'method' => 'POST',

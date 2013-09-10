@@ -11,17 +11,21 @@ Detalle de cuenta
     <div class="panel-body">
 
         {% for periodo in periodos %}
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading text-center">
+        <div class="well well-sm col-lg-2 col-md-3 col-sm-4 col-xs-6">
+            <div class="">
+                <div class="text-center">
                     {{ periodo.fechaVencimiento|date('d') }} de {{ periodo.fechaVencimiento|date('F') }}
-                </div>
-                <div class="panel-body">
-                    <a href="{{ path('cuota_show',{ id: periodo.id }) }}" class="btn btn-default btn-block btn-xs">Ver Detalles</a>
-                    <a href="{{ path('cuota_ingresar_pago',{ id: periodo.id }) }}" class="btn btn-default btn-block btn-xs">Pagar</a>
+                    </div>
+                    <div class="">
+                        <a href="{{ path('cuota_show',{ id: periodo.id }) }}" class="btn btn-default btn-block btn-xs">Ver Detalles</a>
+                    {% if periodo.fechaPago is null %}
+                        <a href="{{ path('cuota_ingresar_pago',{ id: periodo.id }) }}" class="btn btn-primary btn-block btn-xs">Pagar</a>
+                    {% else %}
+                        <button class="btn btn-default btn-block btn-xs disabled">Pagada</button>
+                    {% endif %}
+                    </div>
                 </div>
             </div>
-        </div>
         {% endfor %}
         </div>
     </div>
