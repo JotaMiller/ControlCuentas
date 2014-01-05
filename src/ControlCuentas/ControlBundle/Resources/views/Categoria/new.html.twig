@@ -1,8 +1,9 @@
 {% extends '::base.html.twig' %}
+{% block titulo %}
+Agregar Categoria
+{% endblock %}
 
 {% block body -%}
-    <h1>Categoria creation</h1>
-
     <form action="{{ path('categoria_create') }}" method="post" {{ form_enctype(form) }}>
         {{ form_widget(form) }}
         <p>

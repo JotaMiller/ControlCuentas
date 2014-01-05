@@ -1,23 +1,198 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <title>{% block title %}Control de Cuentas{% endblock %}</title>
-        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/custom-theme.css') }}">
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        <header class="container"><h1>{% block header %}Titulo{% endblock %}</h1></header>
-        <section class="container">
-        {% block body %}{% endblock %}
-        </section>
-        <script src="{{ asset('js/jquery.js') }}"></script>
-        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('js/custom.js') }}"></script>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{% block title %}Control de Cuentas{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+    <!-- Stylesheets -->
+    <link href="{{ asset('style/bootstrap.css') }}" rel="stylesheet">
+    <!-- Font awesome icon -->
+    <link rel="stylesheet" href="{{ asset('style/font-awesome.css') }}"> 
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="{{ asset('style/jquery-ui-1.9.2.custom.min.css') }}"> 
+    <!-- Calendar -->
+    <link rel="stylesheet" href="{{ asset('style/fullcalendar.css') }}">
+    <!-- prettyPhoto -->
+    <link rel="stylesheet" href="{{ asset('style/prettyPhoto.css') }}">  
+    <!-- Star rating -->
+    <link rel="stylesheet" href="{{ asset('style/rateit.css') }}">
+    <!-- Date picker -->
+    <link rel="stylesheet" href="{{ asset('style/bootstrap-datetimepicker.min.css') }}">
+    <!-- CLEditor -->
+    <link rel="stylesheet" href="{{ asset('style/jquery.cleditor.css') }}"> 
+    <link rel="stylesheet" href="{{ asset('style/daterangepicker-bs3.css') }}" />
+    <!-- Bootstrap toggle -->
+    <link rel="stylesheet" href="{{ asset('style/bootstrap-switch.css') }}">
+    <!-- Main stylesheet -->
+    <link href="{{ asset('style/style.css') }}" rel="stylesheet">
+    <!-- Widgets stylesheet -->
+    <link href="{{ asset('style/widgets.css') }}" rel="stylesheet">   
+    <!-- Gritter Notifications stylesheet -->
+    <link href="{{ asset('style/jquery.gritter.css') }}" rel="stylesheet">   
+  
+    <!-- HTML5 Support for IE -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shim.js"></script>
+    <![endif]-->
+  </head>
+<body>
+  <header>
+    <div class="navbar navbar-fixed-top bs-docs-nav" role="banner">
+  
+    <div class="container">
+      <!-- Menu button for smallar screens -->
+      <div class="navbar-header">
+      <button class="navbar-toggle btn-navbar" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse"><span>Menu</span></button>
+      <a href="#" class="pull-left menubutton hidden-xs"><i class="fa fa-bars"></i></a>
+      <!-- Site name for smallar screens -->
+      <a href="index.html" class="navbar-brand">Control<span class="bold">Cuentas</span></a>
+    </div>
+
+      <!-- Navigation starts -->
+      <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">         
+        
+        <!-- Links -->
+        <ul class="nav navbar-nav pull-right">
+          <li class="dropdown pull-right user-data">            
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+              <img src="{{ asset('img/user1.png') }}"> John <span class="bold">Doe</span> <b class="caret"></b>              
+            </a>
+            
+            <!-- Dropdown menu -->
+            <ul class="dropdown-menu">
+              <li><a href="#"><i class="fa fa-user"></i> Perfil de Usuario</a></li>
+              <li><a href="login.html"><i class="fa fa-key"></i> Cerrar Sesión</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+</header>
+<!-- Main content starts -->
+
+  <div class="content">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-dropdown"><a href="#">Navigation</a></div>
+       
+        <!--- Sidebar navigation -->
+        <!-- If the main navigation has sub navigation, then add the class "has_sub" to "li" of main navigation. -->
+        <ul id="nav">
+          <!-- Main menu with font awesome icon -->
+          <li><a href="#" class="open"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
+          <li><a href="{{ url('cuenta_new') }}" class=""><i class="fa fa-plus"></i> <span>Agregar Cuenta</span></a></li>
+          <li><a href="#" class=""><i class="fa fa-usd"></i> <span>Registrar Pago</span></a></li>
+          <li class="has_sub"><a href="#"><i class="fa fa-list-alt"></i> <span>Mantenedores</span> <span class="pull-right"><i class="fa fa-chevron-left"></i></span></a>
+            <ul>
+              <li><a href="{{ url('categoria_new') }}">Agregar Categoria</a></li>
+              <li><a href="#">Editar Categorias</a></li>
+              <li><a href="#">Agregar Forma de Pago</a></li>
+              <li><a href="#">Editar Formas de Pagos</a></li>
+            </ul>
+          </li>                               
+        </ul>
+    </div>
+    <!-- Sidebar ends -->
+
+    <!-- Main bar -->
+    <div class="mainbar">
+      
+      <!-- Page heading -->
+      <div class="page-head">
+        <h2 class="pull-left">{% block titulo %}{%endblock%}</h2>
+        
+        <div class="clearfix"></div>
+        <!-- Breadcrumb -->
+        <div class="bread-crumb">
+          <a href="#"><i class="fa fa-home"></i> Inicio</a> 
+        </div>
+        
+        <div class="clearfix"></div>
+
+      </div>
+      <!-- Page heading ends -->
+
+      <!-- Matter -->
+
+      <div class="matter">
+        <div class="container">
+          {% block body %}
+          {% endblock %}
+        </div>
+    <!-- Matter ends -->
+    </div>
+
+   <!-- Mainbar ends -->
+   <div class="clearfix"></div>
+
+</div>
+<!-- Content ends -->
+
+<!-- Footer starts -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+            <!-- Copyright info -->
+            <p class="copy">Copyright &copy; 2013 | <a href="#">Your Site</a> </p>
+      </div>
+    </div>
+  </div>
+</footer>   
+
+<!-- Footer ends -->
+
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="fa fa-chevron-up"></i></a></span> 
+
+<!-- JS -->
+<script src="{{ asset('js/jquery.js') }}"></script> <!-- jQuery -->
+<script src="{{ asset('js/bootstrap.js') }}"></script> <!-- Bootstrap -->
+<script src="{{ asset('js/jquery-ui-1.9.2.custom.min.js') }}"></script> <!-- jQuery UI -->
+<script src="{{ asset('js/fullcalendar.min.js') }}"></script> <!-- Full Google Calendar - Calendar -->
+<script src="{{ asset('js/jquery.rateit.min.js') }}"></script> <!-- RateIt - Star rating -->
+<script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script> <!-- prettyPhoto -->
+
+<!-- Morris JS -->
+<script src="{{ asset('js/raphael-min.js') }}"></script>
+<script src="{{ asset('js/morris.min.js') }}"></script>
+
+<!-- jQuery Flot -->
+<script src="{{ asset('js/excanvas.min.js') }}"></script>
+<script src="{{ asset('js/jquery.flot.js') }}"></script>
+<script src="{{ asset('js/jquery.flot.resize.js') }}"></script>
+<script src="{{ asset('js/jquery.flot.pie.js') }}"></script>
+<script src="{{ asset('js/jquery.flot.stack.js') }}"></script>
+
+<!-- jQuery Notification - Noty -->
+<script src="{{ asset('js/jquery.noty.js') }}"></script> <!-- jQuery Notify -->
+<script src="{{ asset('js/themes/default.js') }}"></script> <!-- jQuery Notify -->
+<script src="{{ asset('js/layouts/bottom.js') }}"></script> <!-- jQuery Notify -->
+<script src="{{ asset('js/layouts/topRight.js') }}"></script> <!-- jQuery Notify -->
+<script src="{{ asset('js/layouts/top.js') }}"></script> <!-- jQuery Notify -->
+<!-- jQuery Notification ends -->
+
+<!-- Daterangepicker -->
+<script src="{{ asset('js/moment.min.js') }}"></script>
+<script src="{{ asset('js/daterangepicker.js') }}"></script>
+
+<script src="{{ asset('js/sparklines.js') }}"></script> <!-- Sparklines -->
+<script src="{{ asset('js/jquery.gritter.min.js') }}"></script> <!-- jQuery Gritter -->
+<script src="{{ asset('js/jquery.cleditor.min.js') }}"></script> <!-- CLEditor -->
+<script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script> <!-- Date picker -->
+<script src="{{ asset('js/jquery.slimscroll.min.js') }}"></script> <!-- jQuery SlimScroll -->
+<script src="{{ asset('js/bootstrap-switch.min.js') }}"></script> <!-- Bootstrap Toggle -->
+<script src="{{ asset('js/filter.js') }}"></script> <!-- Filter for support page -->
+<script src="{{ asset('js/custom.js') }}"></script> <!-- Custom codes -->
+<script src="{{ asset('js/charts.js') }}"></script> <!-- Charts & Graphs -->
+
+<script src="{{ asset('js/index.js') }}"></script> <!-- Index Javascripts -->
+
         {% block javascripts %}{% endblock %}
-    </body>
+  </body>
 </html>
