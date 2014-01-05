@@ -1,8 +1,9 @@
 {% extends '::base.html.twig' %}
 
-{% block header %}
+{% block titulo %}
 Lista de Cuentas registradas
 {% endblock %}
+
 {% block body -%}
 <div class="row">
 {% for entity in entities %}
@@ -11,8 +12,8 @@ Lista de Cuentas registradas
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="icon-{{ iconTipoCuenta }} pull-left" data-toggle="tooltip" title="{{ entity.tipocuenta.descripcion }}"></i>
                     <h3 class="panel-title"> 
+                    <i class="fa fa-{{ iconTipoCuenta }} pull-left" data-toggle="tooltip" title="{{ entity.tipocuenta.descripcion }}"></i>
                     {{ entity.nombre|truncate(15)}}
                             <a href="{{ path('cuenta_show',{id:entity.id} ) }}" class="btn btn-default btn-xs pull-right">Ver detalle</a>
                         </h3>
