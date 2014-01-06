@@ -23,6 +23,11 @@ class CuentaType extends AbstractType
                     'label' => 'Numero de Cuotas',
                     'mapped' => false
                 ))
+				->add('cuotasIndefinidas','checkbox',array(
+					"mapped" => false,
+					'label'     => 'Cuotas indefinidas.',
+    				'required'  => false,
+				))
                 ->add('fechaPrimeraCuota', 'date', array(
                     'mapped' => false,
                     'widget' =>'single_text'
