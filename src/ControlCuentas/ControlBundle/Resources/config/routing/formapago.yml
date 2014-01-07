@@ -1,0 +1,30 @@
+formapago:
+    pattern:  /
+    defaults: { _controller: "ControlBundle:Formapago:index" }
+
+formapago_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ControlBundle:Formapago:show" }
+
+formapago_new:
+    pattern:  /new
+    defaults: { _controller: "ControlBundle:Formapago:new" }
+
+formapago_create:
+    pattern:  /create
+    defaults: { _controller: "ControlBundle:Formapago:create" }
+    requirements: { _method: post }
+
+formapago_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ControlBundle:Formapago:edit" }
+
+formapago_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ControlBundle:Formapago:update" }
+    requirements: { _method: post|put }
+
+formapago_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ControlBundle:Formapago:delete" }
+    requirements: { _method: post|delete }
