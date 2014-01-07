@@ -23,6 +23,11 @@ class Tipocuenta
      * @ORM\Column(type="text", nullable=true)
      */
     private $descripcion;
+    
+    /**
+     * @ORM\Column(type="integer", unique=true)
+     */
+    private $num;
 
     /** 
      * @ORM\OneToMany(targetEntity="ControlCuentas\ControlBundle\Entity\Cuenta", mappedBy="tipocuenta")
@@ -128,5 +133,28 @@ class Tipocuenta
     public function getDescripcion()
     {
         return $this->descripcion;
+    }
+
+    /**
+     * Set num
+     *
+     * @param integer $num
+     * @return Tipocuenta
+     */
+    public function setNum($num)
+    {
+        $this->num = $num;
+    
+        return $this;
+    }
+
+    /**
+     * Get num
+     *
+     * @return integer 
+     */
+    public function getNum()
+    {
+        return $this->num;
     }
 }

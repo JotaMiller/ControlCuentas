@@ -9,8 +9,8 @@ class Tipocuentas implements FixtureInterface {
 	
 	public function load(ObjectManager $manager) {
 		$tipocuentas = array( 
-			array('nombre' => 'Cuentas a Plazo', 'descripcion' => 'Cuentas con un numero de cuotas fojas, como por ejemplo pago Créditos, Cuotas, Etc.'),
-			array('nombre' => 'Cuentas Indefinidas', 'descripcion' => 'Cuentas que no tienen fecha de término, como por ejemplo: Cuenta de la Luz, Tv Cable, Gastos Fijos, Etc.'), 
+			array('num'=>1,'nombre' => 'Cuentas a Plazo', 'descripcion' => 'Cuentas con un numero de cuotas fojas, como por ejemplo pago Créditos, Cuotas, Etc.'),
+			array('num'=>2,'nombre' => 'Cuentas Indefinidas', 'descripcion' => 'Cuentas que no tienen fecha de término, como por ejemplo: Cuenta de la Luz, Tv Cable, Gastos Fijos, Etc.'), 
 			// ... 
 		); 
 		
@@ -19,6 +19,7 @@ class Tipocuentas implements FixtureInterface {
 			$entidad = new Tipocuenta();
 			$entidad->setNombre($tipocuenta['nombre']);
 			$entidad->setDescripcion($tipocuenta['descripcion']);
+			$entidad->setNum($tipocuenta['num']);
 			$manager->persist($entidad);
 		}
 		$manager->flush ();
