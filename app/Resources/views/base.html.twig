@@ -58,7 +58,7 @@
         <ul class="nav navbar-nav pull-right">
           <li class="dropdown pull-right user-data">            
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-              <img src="{{ asset('img/user1.png') }}"> John <span class="bold">Doe</span> <b class="caret"></b>              
+              <img src="{{ asset('img/user1.png') }}"> {{ app.user.username }}<b class="caret"></b>              
             </a>
             
             <!-- Dropdown menu -->
@@ -192,8 +192,8 @@
 <script src="{{ asset('js/custom.js') }}"></script> <!-- Custom codes -->
 <script src="{{ asset('js/charts.js') }}"></script> <!-- Charts & Graphs -->
 
-<script src="{{ asset('js/index.js') }}"></script> <!-- Index Javascripts -->
+{# <script src="{{ asset('js/index.js') }}"></script> <!-- Index Javascripts -->#}
 
-        {% block javascripts %}{% endblock %}
+      {% block javascripts %}{% endblock %}
   </body>
 </html>

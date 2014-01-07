@@ -15,24 +15,44 @@ class CuentaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('tipocuenta')
-                ->add('categoria')
-                ->add('nombre')
-                ->add('descripcion')
+                ->add('tipocuenta',null,array(
+                	'attr'=>array('class'=>'form-control'),
+                	'label_attr'=>array('class'=>'control-label col-lg-2'),
+                ))
+                ->add('categoria',null,array(
+                	'attr'=>array('class'=>'form-control'),
+                	'label_attr'=>array('class'=>'control-label col-lg-2'),
+                ))
+                ->add('nombre',null,array(
+                	'attr'=>array('class'=>'form-control'),
+                	'label_attr'=>array('class'=>'control-label col-lg-2'),
+                ))
+                ->add('descripcion',null,array(
+                	'attr'=>array('class'=>'form-control'),
+                	'label_attr'=>array('class'=>'control-label col-lg-2'),
+                ))
                 ->add('cantidadCuotas', 'integer', array(
-                    'label' => 'Numero de Cuotas',
-                    'mapped' => false
+                    'label' => 'Cantidad de Cuotas',
+                    'mapped' => false,
+                	'attr'=>array('class'=>'form-control'),
+                	'label_attr'=>array('class'=>'control-label col-lg-2'),
                 ))
 				->add('cuotasIndefinidas','checkbox',array(
 					"mapped" => false,
-					'label'     => 'Cuotas indefinidas.',
+					'label'     => 'Gastos Fijos',
     				'required'  => false,
+// 					'attr'=>array('class'=>'form-control'),
+// 					'label_attr'=>array('class'=>'control-label col-lg-2'),
 				))
                 ->add('fechaPrimeraCuota', 'date', array(
+               		'attr'=>array('class'=>'form-control'),
+               		'label_attr'=>array('class'=>'control-label col-lg-2'),
                     'mapped' => false,
                     'widget' =>'single_text'
                 ))
                 ->add('montoCuota','money',array(
+                	'attr'=>array('class'=>'form-control'),
+                	'label_attr'=>array('class'=>'control-label col-lg-2'),
                     'currency' => false,
                     'precision' => 0,
                     'mapped' => false,
