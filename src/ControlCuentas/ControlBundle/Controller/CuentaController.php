@@ -42,12 +42,12 @@ class CuentaController extends Controller
         
         $form = $this->createForm(new CuentaType(), $entity);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             
             // Seteo de variables
-            $tipoCuenta         =   $form->get('tipocuenta')->getData();
+            // @TODO: Pendiente agregar la selección de los diferentes tipos de Cuentas, de momento solo se admiten cuentas fijas
+            $tipocuenta         =   $em->getRepository('ControlBundle:Tipocuenta')->findOneByNum(1);
             
             $numero_cuotas      =   $form->get('cantidadCuotas')->getData();
             $monto_pactado      =   $form->get('montoCuota')->getData();
@@ -55,9 +55,10 @@ class CuentaController extends Controller
                                     
 //            ld($fecha_vencimiento->add(new \DateInterval('P12M')));
             $entity->setUsuario($usuario);
+            $entity->setTipocuenta($tipocuenta);
             $em->persist($entity);
             
-            if ($tipoCuenta->getId() == 1){
+            if ($tipocuenta->getNum() == 1){
                 // Cuenta plazo fijo
                 for ($i = 1; $i<= $numero_cuotas; $i++) {
                     $cuota = new Cuota();
