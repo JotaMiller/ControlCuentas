@@ -2,12 +2,15 @@
 namespace ControlCuentas\ControlBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+
 use ControlCuentas\ControlBundle\Entity\Usuario;
 
-class Usuarios implements FixtureInterface, ContainerAwareInterface
+class Usuarios extends AbstractFixture implements OrderedFixtureInterface, FixtureInterface, ContainerAwareInterface
 {
 	/**
 	 * @var ContainerInterface
@@ -20,6 +23,10 @@ class Usuarios implements FixtureInterface, ContainerAwareInterface
 	public function setContainer(ContainerInterface $container = null)
 	{
 		$this->container = $container;
+	}
+	public function getOrder()
+	{
+		return 1;
 	}
 	
 	public function load(ObjectManager $manager)

@@ -14,12 +14,7 @@ class CuentaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-                ->add('tipocuenta',null,array(
-                	'attr'=>array('class'=>'form-control'),
-                	'label_attr'=>array('class'=>'control-label col-lg-2'),
-                ))
-                ->add('categoria',null,array(
+        $builder->add('categoria',null,array(
                 	'attr'=>array('class'=>'form-control'),
                 	'label_attr'=>array('class'=>'control-label col-lg-2'),
                 ))
