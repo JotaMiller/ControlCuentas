@@ -17,7 +17,7 @@ class CuentaController extends Controller
 {
 
     /**
-     * Lists all Cuenta entities.
+     * Muestras las cuentas "Activas" para el usuario logeado
      *
      */
     public function indexAction()
@@ -25,7 +25,7 @@ class CuentaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $usuario = $this->getUser();
         
-        $entities = $em->getRepository('ControlBundle:Cuenta')->findByUsuario($usuario->getId());
+        $entities = $em->getRepository('ControlBundle:Cuenta')->findBy(array('usuario'=>$usuario->getId(),'activo'=>1));
 
         return $this->render('ControlBundle:Cuenta:index.html.twig', array(
             'entities' => $entities,
@@ -121,8 +121,10 @@ class CuentaController extends Controller
 
         $entity = $em->getRepository('ControlBundle:Cuenta')->find($id);
         $cuotas = $em->getRepository('ControlBundle:Cuota')->findAllOrdered($id);
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Cuenta entity.');
+        $estadisticas = $em->getRepository('ControlBundle:Cuenta')->getEstadisticas($id);
+        
+        if (!$entity || $entity->getActivo() == 0) {
+            throw $this->createNotFoundException('No se encuentra la Cuenta solicitada');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -130,7 +132,9 @@ class CuentaController extends Controller
         return $this->render('ControlBundle:Cuenta:show.html.twig', array(
             'entity'        => $entity,
             'cuotas'        => $cuotas,
-            'delete_form'   => $deleteForm->createView(),        ));
+            'delete_form'   => $deleteForm->createView(),
+        	'estadisticas'  => $estadisticas,        
+        ));
     }
 
     /**
@@ -143,8 +147,8 @@ class CuentaController extends Controller
 
         $entity = $em->getRepository('ControlBundle:Cuenta')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Cuenta entity.');
+        if (!$entity || $entity->getActivo() == 0) {
+            throw $this->createNotFoundException('No se encuentra la Cuenta Solicitada');
         }
 
         $editForm = $this->createForm(new CuentaType(), $entity);
@@ -167,8 +171,8 @@ class CuentaController extends Controller
 
         $entity = $em->getRepository('ControlBundle:Cuenta')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Cuenta entity.');
+        if (!$entity || $entity->getActivo()==0) {
+            throw $this->createNotFoundException('No se encuentra la cuenta solicitada');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -204,8 +208,9 @@ class CuentaController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Cuenta entity.');
             }
-
-            $em->remove($entity);
+			
+            $entity->setActivo(0);
+            $em->persist($entity);
             $em->flush();
         }
 

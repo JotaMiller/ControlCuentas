@@ -47,6 +47,12 @@ class Cuenta
      * @ORM\JoinColumn(name="tipocuenta_id", referencedColumnName="id", nullable=false)
      */
     private $tipocuenta;
+    
+    /**
+     * @ORM\Column(type="boolean", options={"default":true})
+     */
+    private $activo;
+    
     /**
      * Constructor
      */
@@ -216,5 +222,28 @@ class Cuenta
     public function getTipocuenta()
     {
         return $this->tipocuenta;
+    }
+
+    /**
+     * Set activo
+     *
+     * @param boolean $activo
+     * @return Cuenta
+     */
+    public function setActivo($activo)
+    {
+        $this->activo = $activo;
+    
+        return $this;
+    }
+
+    /**
+     * Get activo
+     *
+     * @return boolean 
+     */
+    public function getActivo()
+    {
+        return $this->activo;
     }
 }

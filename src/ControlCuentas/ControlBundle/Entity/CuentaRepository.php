@@ -12,5 +12,45 @@ use Doctrine\ORM\EntityRepository;
  */
 class CuentaRepository extends EntityRepository
 {
-    
+	/**
+	 * Devuelve las estadisticas asociadas a la cuenta
+	 * 
+	 * 1) porcentaje de cuotas Pagadas
+	 * 
+	 * @param $int $id_cuenta: Id de la cuenta a buscar
+	 * 
+	 * @return
+	 */
+    public function getEstadisticas($id){
+    	$em = $this->getEntityManager();
+    	$estadisticas = array(
+    			'cuotas_pagadas'=>0,
+    			'total_pagado' => 0
+    	);
+    	$cuotas_pagadas = 0;
+    	$total_pagado = 0;
+    	
+    	$cuotas = $em->createQueryBuilder()
+	    	->select('cuota')
+	    	->from('ControlBundle:Cuota', 'cuota')
+	    	->where('cuota.cuenta = :id')
+	    	->orderBy('cuota.fecha_vencimiento','ASC')
+	    	->setParameters(array('id'=>$id))
+	    	->getQuery()
+	    	->getResult();
+    	
+    	foreach ($cuotas as $cuota){
+    		if ($cuota->getMontoPagado()) {
+    			$cuotas_pagadas ++;
+    			$total_pagado  = + $cuota->getMontoPagado();
+    		}
+    	}
+    	
+    	$total_cuotas = count($cuotas);
+    	
+    	$estadisticas['cuotas_pagadas'] = ( $cuotas_pagadas * 100 ) / $total_cuotas;
+    	$estadisticas['total_pagado'] = $total_pagado;
+    	
+    	return $estadisticas;
+    }
 }

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>{% block title %}Control de Cuentas{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
+    
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
     <!-- Stylesheets -->
@@ -32,7 +32,7 @@
     <link href="{{ asset('style/widgets.css') }}" rel="stylesheet">   
     <!-- Gritter Notifications stylesheet -->
     <link href="{{ asset('style/jquery.gritter.css') }}" rel="stylesheet">   
-  
+  	{% block stylesheets %}{% endblock %}
     <!-- HTML5 Support for IE -->
     <!--[if lt IE 9]>
     <script src="js/html5shim.js"></script>
@@ -85,7 +85,7 @@
         <ul id="nav">
           <!-- Main menu with font awesome icon -->
           <li><a href="#" class="open"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
-          <li><a href="{{ url('cuenta') }}" class=""><i class="fa fa-bars"></i> <span>Ver Cuenta</span></a></li>
+          <li><a href="{{ url('cuenta') }}" class=""><i class="fa fa-bars"></i> <span>Ver Cuentas</span></a></li>
           <li><a href="{{ url('cuenta_new') }}" class=""><i class="fa fa-plus"></i> <span>Agregar Cuenta</span></a></li>
           <li><a href="#" class=""><i class="fa fa-usd"></i> <span>Registrar Pago</span></a></li>
           <li class="has_sub"><a href="#"><i class="fa fa-list-alt"></i> <span>Mantenedores</span> <span class="pull-right"><i class="fa fa-chevron-left"></i></span></a>
@@ -140,7 +140,7 @@
     <div class="row">
       <div class="col-md-12">
             <!-- Copyright info -->
-            <p class="copy">Copyright &copy; 2013 | <a href="#">Your Site</a> </p>
+            <p class="copy">Control de Cuentas &copy; 2014 | Desarrollado por <a href="http://www.jotamiller.cl">JotaMiller</a> </p>
       </div>
     </div>
   </div>
