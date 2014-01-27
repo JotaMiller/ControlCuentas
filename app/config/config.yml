@@ -85,4 +85,9 @@ nelmio_api_doc:
         name: access_token
         delivery: http_basic # query or http_basic are supported
 #        custom_endpoint: true # default false, if true, your user will be able to specify its own endpoint
- 
+stof_doctrine_extensions:
+    default_locale: es
+    translation_fallback: true
+    orm:
+        default:
+            sluggable: true

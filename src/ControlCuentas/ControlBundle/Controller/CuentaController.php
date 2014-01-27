@@ -56,6 +56,7 @@ class CuentaController extends Controller
 //            ld($fecha_vencimiento->add(new \DateInterval('P12M')));
             $entity->setUsuario($usuario);
             $entity->setTipocuenta($tipocuenta);
+            $entity->setActivo(1);
             $em->persist($entity);
             
             if ($tipocuenta->getNum() == 1){
@@ -86,7 +87,7 @@ class CuentaController extends Controller
 
             $em->flush();
 
-            return $this->redirect($this->generateUrl('cuenta_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('cuenta_show', array('slug' => $entity->getSlug())));
         }
 
         return $this->render('ControlBundle:Cuenta:new.html.twig', array(
@@ -115,19 +116,19 @@ class CuentaController extends Controller
      * Finds and displays a Cuenta entity.
      *
      */
-    public function showAction($id)
+    public function showAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ControlBundle:Cuenta')->find($id);
-        $cuotas = $em->getRepository('ControlBundle:Cuota')->findAllOrdered($id);
-        $estadisticas = $em->getRepository('ControlBundle:Cuenta')->getEstadisticas($id);
+        $entity = $em->getRepository('ControlBundle:Cuenta')->findOneBySlug($slug);
+        $cuotas = $em->getRepository('ControlBundle:Cuota')->findAllOrdered($entity->getId());
+        $estadisticas = $em->getRepository('ControlBundle:Cuenta')->getEstadisticas($entity->getId());
         
         if (!$entity || $entity->getActivo() == 0) {
             throw $this->createNotFoundException('No se encuentra la Cuenta solicitada');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($slug);
 
         return $this->render('ControlBundle:Cuenta:show.html.twig', array(
             'entity'        => $entity,
@@ -141,18 +142,18 @@ class CuentaController extends Controller
      * Displays a form to edit an existing Cuenta entity.
      *
      */
-    public function editAction($id)
+    public function editAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ControlBundle:Cuenta')->find($id);
+        $entity = $em->getRepository('ControlBundle:Cuenta')->findOneBySlug($slug);
 
         if (!$entity || $entity->getActivo() == 0) {
             throw $this->createNotFoundException('No se encuentra la Cuenta Solicitada');
         }
 
         $editForm = $this->createForm(new CuentaType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($slug);
 
         return $this->render('ControlBundle:Cuenta:edit.html.twig', array(
             'entity'      => $entity,
@@ -165,17 +166,17 @@ class CuentaController extends Controller
      * Edits an existing Cuenta entity.
      *
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ControlBundle:Cuenta')->find($id);
+        $entity = $em->getRepository('ControlBundle:Cuenta')->findOneBySlug($slug);
 
         if (!$entity || $entity->getActivo()==0) {
             throw $this->createNotFoundException('No se encuentra la cuenta solicitada');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($slug);
         $editForm = $this->createForm(new CuentaType(), $entity);
         $editForm->submit($request);
 
@@ -183,7 +184,7 @@ class CuentaController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('cuenta_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('cuenta_edit', array('slug' => $slug)));
         }
 
         return $this->render('ControlBundle:Cuenta:edit.html.twig', array(
@@ -196,14 +197,14 @@ class CuentaController extends Controller
      * Deletes a Cuenta entity.
      *
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, $slug)
     {
-        $form = $this->createDeleteForm($id);
+        $form = $this->createDeleteForm($slug);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('ControlBundle:Cuenta')->find($id);
+            $entity = $em->getRepository('ControlBundle:Cuenta')->findOneBySlug($slug);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Cuenta entity.');
@@ -224,10 +225,10 @@ class CuentaController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
+    private function createDeleteForm($slug)
     {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
+        return $this->createFormBuilder(array('slug' => $slug))
+            ->add('slug', 'hidden')
             ->getForm()
         ;
     }

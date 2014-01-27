@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new RaulFraile\Bundle\LadybugBundle\RaulFraileLadybugBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
         	new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+        	new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

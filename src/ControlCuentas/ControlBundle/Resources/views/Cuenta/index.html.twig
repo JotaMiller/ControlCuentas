@@ -14,8 +14,8 @@ Lista de Cuentas registradas
                 <div class="panel-heading">
                     <h3 class="panel-title"> 
                     <i class="fa fa-{{ iconTipoCuenta }} pull-left" data-toggle="tooltip" title="{{ entity.tipocuenta.descripcion }}"></i>
-                    {{ entity.nombre|truncate(15)}}
-                            <a href="{{ path('cuenta_show',{id:entity.id} ) }}" class="btn btn-default btn-xs pull-right">Ver detalle</a>
+                    {{ entity.nombre|truncate(15)}} 
+                            <a href="{{ path('cuenta_show',{slug:entity.slug} ) }}" class="btn btn-default btn-xs pull-right">Ver detalle</a>
                         </h3>
                     </div>
                     <div class="panel-body">

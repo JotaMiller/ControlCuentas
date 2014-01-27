@@ -65,8 +65,8 @@ endblock %} {% block body -%}
 </div>
 {% endfor %}
 <a href="{{ path('cuenta') }}" class="btn btn-primary"> Regresar a la listat </a>
-<a href="{{ path('cuenta_edit', { 'id': entity.id }) }}" class="btn btn-default"> Editar </a>
-<form action="{{ path('cuenta_delete', { 'id': entity.id }) }}"	method="post">
+<a href="{{ path('cuenta_edit', { 'slug': entity.slug }) }}" class="btn btn-default"> Editar </a>
+<form action="{{ path('cuenta_delete', { 'slug': entity.slug }) }}"	method="post">
 	<input type="hidden" name="_method" value="DELETE" /> 
 	{{	form_widget(delete_form) }}
 	<button type="submit" class="btn btn-danger">Eliminar</button>

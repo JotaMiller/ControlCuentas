@@ -1,6 +1,7 @@
 <?php
 namespace ControlCuentas\ControlBundle\Entity;
 use Doctrine\ORM\Mapping AS ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /** 
  * @ORM\Entity
@@ -52,6 +53,12 @@ class Cuenta
      * @ORM\Column(type="boolean", options={"default":true})
      */
     private $activo;
+    
+    /**
+     * @Gedmo\Slug(fields={"nombre"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
     
     /**
      * Constructor
@@ -245,5 +252,28 @@ class Cuenta
     public function getActivo()
     {
         return $this->activo;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Cuenta
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }
