@@ -9,29 +9,28 @@ Lista de Cuentas registradas
 {% for entity in entities %}
         {% set iconTipoCuenta = 'calendar' %}
         {% if entity.tipocuenta.id == 2 %}{% set iconTipoCuenta = 'refresh' %}{% endif %}
+       
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"> 
-                    <i class="fa fa-{{ iconTipoCuenta }} pull-left" data-toggle="tooltip" title="{{ entity.tipocuenta.descripcion }}"></i>
-                    {{ entity.nombre|truncate(15)}} 
-                            <a href="{{ path('cuenta_show',{slug:entity.slug} ) }}" class="btn btn-default btn-xs pull-right">Ver detalle</a>
-                        </h3>
-                    </div>
-                    <div class="panel-body">
-                        <div data-toggle="tooltip" title="60%" data-placement="bottom" class="progress progress-striped active">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                                <span class="sr-only">60% Complete</span>
-                            </div>
-                        </div>
-                        <p class="text-info">{{ entity.descripcion }}</p>
-                    </div>
-                    <div class="panel-footer">
-                        <small><span class="badge">{{ entity.cuotas|length() }}</span> Cuotas Registradas</small>
-                    </div>
+        	<div class="widget-container fluid-height">
+              <div class="heading">
+                <i class="fa fa-{{ iconTipoCuenta }} pull-left" data-toggle="tooltip" title="{{ entity.tipocuenta.descripcion }}"></i>
+                {{ entity.nombre|truncate(15)}} 
+              </div>
+              <div class="widget-content padded">
+               	<div class="progress progress-striped active">
+	                <div class="progress-bar" style="width: 50%"></div>
                 </div>
+              	
+              	<a href="#" class="btn btn-primary-outline btn-xs" ><i class="fa fa-folder-open-o"></i></a>
+              	<a href="{{ path('cuenta_show',{slug:entity.slug} ) }}" class="btn btn-primary-outline btn-xs">Ver detalle</a>
+               
+                <p class="text-info">{{ entity.descripcion }}</p>
+              	
+              	 <small><span class="label label-primary">{{ entity.cuotas|length() }}</span> Cuotas Registradas</small>
+              </div>
             </div>
-{% endfor %}
         </div>
-        <a href="{{ path('cuenta_new') }}" class="btn btn-primary">Crear nueva Cuenta</a>
-    {% endblock %}
+{% endfor %}
+</div>
+
+{% endblock %}

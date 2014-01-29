@@ -25,3 +25,8 @@ fos_user_change_password:
 NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
     prefix:   /app/api/doc
+
+#Multi Upload
+oneup_uploader:
+    resource: .
+    type: uploader

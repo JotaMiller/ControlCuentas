@@ -5,12 +5,14 @@ Pago de Cuota
 {% endblock %}
 
 {% block body %}
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Registro de Pago de Cuota</h3>
-    </div>
-    <div class="panel-body">
+<div class="row">
+<div class="col-md-6">
+<div class="widget-container">
+	<div class="heading">
+		<i class="fa fa-check-square-o"></i>Registro de Pago de Cuota
+	</div>
+    
+    <div class="widget-content padded">
         {{ form_start(form,{'attr':{'class':'form-horizontal','role':'form'}}) }}
         <div class="form-group">
             {{ form_label(form.fecha_pago) }}
@@ -48,11 +50,29 @@ Pago de Cuota
         <div class="form-group">
             <div class="col-lg-offset-2 col-lg-10">
                 <button type="submit" class="btn btn-primary">Guardar el Pago</button>
-                <a href="{{ path('cuenta_show',{id: entity.cuenta.id}) }}" class="btn btn-default">Volver a la Cuenta</a>
+                <a href="{{ path('cuenta_show',{slug: entity.cuenta.slug}) }}" class="btn btn-default">Volver a la Cuenta</a>
             </div>
         </div>
         {{ form_rest(form) }}
         {{ form_end(form) }}
     </div>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="row">
+          <div class="col-lg-12">
+            <div class="widget-container fluid-height clearfix">
+              <div class="heading">
+			    <i class="fa fa-paperclip"></i>Ingresar el/las Boletas/Comprobantes de pago digitalizados
+			  </div>
+              <div class="widget-content padded">
+                <form action="{{ oneup_uploader_endpoint('gallery') }}" class="dropzone" id="dropzone-demo">
+				</form>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
 </div>
 {% endblock %}

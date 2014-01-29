@@ -38,7 +38,7 @@ Detalle de la Cuota
     </div>
 </div>
 <a href="{{ path('cuota_ingresar_pago',{ id: entity.id }) }}" class="btn btn-primary" data-toggle="tooltip" title="Registra el pago de la cuota"><i class="icon-dollar"></i> Registrar Pago</a>
-<a href="{{ path('cuenta_show',{id: entity.cuenta.id }) }}" data-toggle="tooltip" title="Regresa a la vista general de la 'Cuenta'" class="btn btn-default">
+<a href="{{ path('cuenta_show',{slug: entity.cuenta.slug }) }}" data-toggle="tooltip" title="Regresa a la vista general de la 'Cuenta'" class="btn btn-default">
     <i class="icon-mail-reply"></i> Volver a la Cuenta
 </a>
 {% endblock %}

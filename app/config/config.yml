@@ -91,3 +91,9 @@ stof_doctrine_extensions:
     orm:
         default:
             sluggable: true
+
+#Multiupload
+oneup_uploader:
+    mappings:
+        gallery:
+            frontend: blueimp # or any uploader you use in the frontend

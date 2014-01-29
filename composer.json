@@ -22,7 +22,8 @@
 		"knplabs/knp-menu-bundle" : "dev-master",
 		"doctrine/doctrine-fixtures-bundle" : "dev-master",
 		"doctrine/data-fixtures" : "dev-master",
-		"stof/doctrine-extensions-bundle": "~1.1@dev"
+		"stof/doctrine-extensions-bundle" : "~1.1@dev",
+		"oneup/uploader-bundle": "1.0.*@dev"
 	},
 	"autoload" : {
 		"psr-0" : {
