@@ -15,11 +15,11 @@ Lista de Cuentas registradas
               <div class="heading">
                 <i class="fa fa-{{ iconTipoCuenta }} pull-left" data-toggle="tooltip" title="{{ entity.tipocuenta.descripcion }}"></i>
                 {{ entity.nombre|truncate(15)}} 
-                <span class="label label-primary pull-right">{{ entity.cuotas|length() }}</span>
+                <span class="label label-primary pull-right tooltip-trigger" data-placement="top" data-toggle="tooltip" data-original-title="Cantidad de Cuotas">{{ entity.cuotas|length() }}</span>
               </div>
               <div class="widget-content padded">
-               	<div class="progress progress-striped active">
-	                <div class="progress-bar" style="width: {{ entity.getPorcentajeAvance }}%"></div>
+               	<div class="progress progress-striped active tooltip-trigger" data-placement="top" data-toggle="tooltip" data-original-title="{{ entity.getPorcentajeAvance|number_format(0) }}%">
+	                <div class="progress-bar " style="width: {{ entity.getPorcentajeAvance }}%"></div>
                 </div>
                 
                 <p class="text-info">{{ entity.descripcion }}</p>
