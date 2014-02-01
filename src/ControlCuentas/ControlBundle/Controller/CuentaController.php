@@ -67,10 +67,10 @@ class CuentaController extends Controller
                     $cuota->setMontoPactado($monto_pactado);
                     $cuota->setFechaVencimiento($fecha_vencimiento);
                     
-                    $fecha_vencimiento->add(new \DateInterval('P1M')); // +1 mes
-                    
                     $em->persist($cuota);
                     $em->flush();
+                    
+                    $fecha_vencimiento->add(new \DateInterval('P1M')); // +1 mes
                 }
             }else{
                 // Cuenta indefinida (Sin limite de 'Cuotas')
