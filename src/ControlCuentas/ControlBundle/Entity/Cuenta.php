@@ -276,4 +276,23 @@ class Cuenta
     {
         return $this->slug;
     }
+    
+    /**
+     * Devuelve el porcentaje de avance de la cuenta (pagado)
+     * 
+     */
+    public function getPorcentajeAvance(){
+    	$cuotas = $this->getCuotas();
+    	    	
+    	$cuotas_pagadas = 0;
+    	$total_cuotas = count($cuotas);
+    	
+    	foreach ($cuotas as $cuota){
+    		if ($cuota->getMontoPagado()){
+    			$cuotas_pagadas ++;
+    		}
+    	}
+    	$resp = ( $cuotas_pagadas * 100 ) / $total_cuotas;
+    	return $resp;
+    }
 }

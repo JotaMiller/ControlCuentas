@@ -26,7 +26,7 @@ class CuentaController extends Controller
         $usuario = $this->getUser();
         
         $entities = $em->getRepository('ControlBundle:Cuenta')->findBy(array('usuario'=>$usuario->getId(),'activo'=>1));
-
+		
         return $this->render('ControlBundle:Cuenta:index.html.twig', array(
             'entities' => $entities,
         ));

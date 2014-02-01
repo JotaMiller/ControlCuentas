@@ -15,11 +15,14 @@ class CuentaRepository extends EntityRepository
 	/**
 	 * Devuelve las estadisticas asociadas a la cuenta
 	 * 
-	 * 1) porcentaje de cuotas Pagadas
+	 * 1) cuotas pagadas
+	 * 2) cuotas pendientes
+	 * 3) total pagado $$
+	 * 4) total pendiente $$
 	 * 
 	 * @param $int $id_cuenta: Id de la cuenta a buscar
 	 * 
-	 * @return
+	 * @return array
 	 */
     public function getEstadisticas($id){
     	$em = $this->getEntityManager();
