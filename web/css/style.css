@@ -1097,6 +1097,9 @@ th:active {
   .widget-container.small {
     min-height: 120px;
     height: 200px; }
+   .widget-container.micro {
+    min-height: 50px;
+    height: 150px; }
   .widget-container.gallery {
     min-height: 400px; }
   .widget-container .heading {

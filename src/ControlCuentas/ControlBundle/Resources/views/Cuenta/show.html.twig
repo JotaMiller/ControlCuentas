@@ -2,14 +2,18 @@
 {% block titulo %} 
 Detalle de cuenta 
 {% endblock %} 
+
+{% block descripcion %}
+{{ entity.descripcion }}
+{% endblock %}
+
 {% block body -%}
 <div class="row">
 	<div class="col-lg-12">
 		<div class="widget-container stats-container">
 	    	<div class="col-md-3">
 	        	<div class="number">
-	            	<div class="icon money"></div>
-	                <small>$</small>{{ estadisticas.total_pagado }}
+	                <small>$</small>{{ estadisticas.total_pagado|number_format(0, ',', '.') }}
 	            </div>
 	            <div class="text">
 	            	Pagado a la Fecha
@@ -17,8 +21,7 @@ Detalle de cuenta
 			</div>
 			<div class="col-md-3">
 	        	<div class="number">
-	            	<div class="icon money"></div>
-	                <small>$</small>-
+	                <small>$</small>{{ estadisticas.total_pendiente|number_format(0, ',', '.') }}
 	            </div>
 	            <div class="text">
 	            	Pendiente por Pagar
@@ -26,8 +29,7 @@ Detalle de cuenta
 			</div>
 			<div class="col-md-3">
 	        	<div class="number">
-	            	<div class="icon money"></div>
-	                <small>$</small>-
+	                {{ estadisticas.cuotas_pagadas }}
 	            </div>
 	            <div class="text">
 	            	Cuotas Pagadas
@@ -35,8 +37,7 @@ Detalle de cuenta
 			</div>
 			<div class="col-md-3">
 	        	<div class="number">
-	            	<div class="icon money"></div>
-	                <small>$</small>-
+	                {{ estadisticas.cuotas_pendientes }}
 	            </div>
 	            <div class="text">
 	            	Cuotas Pendientes
@@ -49,21 +50,7 @@ Detalle de cuenta
 
 <div class="row">
 	<div class="col-lg-12">
-		<div class="widget-container fluid-height">
-			<table class="table table-filters">
-				<tbody>
-	            	<tr>
-	                	<td class="filter-category blue">
-	                      <div class="arrow-left"></div>
-	                      <i class="fa fa-stethoscope"></i>
-	                    </td>
-		                <td>
-		                	Cuotas pertenecientes al año <b>{{ key }}</b>
-						</td>
-	            	</tr>
-	          	</tbody>
-	        </table>
-		</div>
+		<h1 class="text-center">{{ key }}</h1>
 	</div>
 </div>
 
@@ -71,7 +58,7 @@ Detalle de cuenta
 	<div class="row">
 		{% for periodo in periodos %}
 		<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 margin-bottom">
-			<div class="widget-container small">
+			<div class="widget-container micro">
 			  <div class="heading">
 			    <i class="fa fa-calendar"></i>{{ periodo.fechaVencimiento|date('d') }} de {{ periodo.fechaVencimiento|date('F') }}
 			  </div>
@@ -84,22 +71,6 @@ Detalle de cuenta
 				{% else %}
 					<a class="btn btn-default btn-block btn-xs disabled">Pagada</a>
 				{% endif %}
-				<br>
-				{# Pagado#}
-				<small class="text-muted">
-					<i class="fa fa-check-square-o"></i>Pagado
-				</small><br>
-				
-				{# Comprobantes #}
-				<small class="text-muted">
-					<i class="fa fa-file-text-o "></i>Tiene Comprobantes
-				</small><br>
-				
-				{# fecha Pago Pagado #}
-				<small class="text-muted">
-				<i class="fa fa-clock-o"></i>Hace 2 dias
-				</small>
-
 			  </div>
 			</div>
 		</div>

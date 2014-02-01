@@ -96,4 +96,4 @@ stof_doctrine_extensions:
 oneup_uploader:
     mappings:
         gallery:
-            frontend: blueimp # or any uploader you use in the frontend
+            frontend: dropzone # or any uploader you use in the frontend

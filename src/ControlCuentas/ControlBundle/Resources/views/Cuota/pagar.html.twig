@@ -1,12 +1,12 @@
 {% extends '::base.html.twig' %}
 
-{% block header %}
+{% block titulo %}
 Pago de Cuota
 {% endblock %}
 
 {% block body %}
 <div class="row">
-<div class="col-md-6">
+<div class="col-md-12">
 <div class="widget-container">
 	<div class="heading">
 		<i class="fa fa-check-square-o"></i>Registro de Pago de Cuota
@@ -36,7 +36,7 @@ Pago de Cuota
                 {{ form_widget(form.monto_pagado) }}
             </div>
                 <div class="col-lg-4">
-                    <span class="help-block">Monto a pagar: ${{ entity.montoPactado|number_format(0,',','.') }}.-</span>
+                    <span class="help-block">Monto Cuota: ${{ entity.montoPactado|number_format(0,',','.') }}.-</span>
                 </div>
         </div>
         <div class="form-group">
@@ -59,20 +59,5 @@ Pago de Cuota
 </div>
 </div>
 
-<div class="col-md-6">
-<div class="row">
-          <div class="col-lg-12">
-            <div class="widget-container fluid-height clearfix">
-              <div class="heading">
-			    <i class="fa fa-paperclip"></i>Ingresar el/las Boletas/Comprobantes de pago digitalizados
-			  </div>
-              <div class="widget-content padded">
-                <form action="{{ oneup_uploader_endpoint('gallery') }}" class="dropzone" id="dropzone-demo">
-				</form>
-              </div>
-            </div>
-          </div>
-        </div>
-</div>
 </div>
 {% endblock %}

@@ -28,7 +28,9 @@ class CuentaRepository extends EntityRepository
     			'total_pagado' => 0
     	);
     	$cuotas_pagadas = 0;
+    	$cuotas_pendientes = 0;
     	$total_pagado = 0;
+    	$total_pendiente = 0;
     	
     	$cuotas = $em->createQueryBuilder()
 	    	->select('cuota')
@@ -42,14 +44,19 @@ class CuentaRepository extends EntityRepository
     	foreach ($cuotas as $cuota){
     		if ($cuota->getMontoPagado()) {
     			$cuotas_pagadas ++;
-    			$total_pagado  = + $cuota->getMontoPagado();
+    			$total_pagado  = $total_pagado + $cuota->getMontoPagado();
+    		}else{
+    			$total_pendiente = $total_pendiente + $cuota->getMontoPactado();
+    			$cuotas_pendientes ++;
     		}
     	}
     	
     	$total_cuotas = count($cuotas);
     	
-    	$estadisticas['cuotas_pagadas'] = ( $cuotas_pagadas * 100 ) / $total_cuotas;
+    	$estadisticas['cuotas_pagadas'] = $cuotas_pagadas;
+    	$estadisticas['cuotas_pendientes'] = $cuotas_pendientes;
     	$estadisticas['total_pagado'] = $total_pagado;
+    	$estadisticas['total_pendiente'] = $total_pendiente;
     	
     	return $estadisticas;
     }

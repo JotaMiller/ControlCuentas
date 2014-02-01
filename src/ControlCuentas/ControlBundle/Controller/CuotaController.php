@@ -241,6 +241,7 @@ class CuotaController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('No se encuentra cuota con id:' . $id);
         }
+        $entity->setFechaPago( new \DateTime() );
 
         $form = $this->createForm(new CuotaPagarType(), $entity, array(
             'action' => $this->generateUrl('cuota_pagar',array('id'=>$entity->getId())),

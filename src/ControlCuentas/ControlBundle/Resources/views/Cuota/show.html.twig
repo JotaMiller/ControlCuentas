@@ -4,41 +4,58 @@
 Detalle de la Cuota
 {% endblock %}
 {% block body -%}
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Cuota correspondiente al {{ entity.fechaVencimiento|date('d \\d\\e F \\d\\e\\l Y') }}</h3>
-    </div>
-    <div class="panel-body">
-        <h4>Resumen</h4>
-        <p>{{ estado }}</p>
-        <h4>Detalle</h4>
-        <table class="table table-bordered table-hover">
-            <tr>
-                <th>Fecha Vencimiento</th>
-                <td>{{ entity.fechaVencimiento|date('d-m-Y') }}</td>
-            </tr>
-            <tr>
-                <th>Monto Pactado:</th>
-                <td>${{ entity.montoPactado|number_format(0,',','.') }}.-</td>
-            </tr>
-            {% if entity.montoPagado is not null %}
-            <tr>
-                <th>Monto Pagado:</th>
-                <td>${{ entity.montoPagado|number_format(0,',','.') }}-</td>
-            </tr>
-            {% endif %}
-            {% if entity.fechaPago is not null %}
-            <tr>
-                <th>Fecha de Pago:</th>
-                <td>{{ entity.fechaPago|date('d-m-Y') }}</td>
-            </tr>
-            {% endif %}
-        </table>
-    </div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="widget-container">
+		  <div class="heading">
+		    <i class="fa fa-dollar"></i>Cuota correspondiente al {{ entity.fechaVencimiento|date('d \\d\\e F \\d\\e\\l Y') }}
+		  </div>
+		  <div class="widget-content padded">
+		    <h4>Resumen</h4>
+	        <p>{{ estado }}</p>
+	        <h4>Detalle</h4>
+	        <table class="table table-bordered table-hover">
+	            <tr>
+	                <th>Fecha Vencimiento</th>
+	                <td>{{ entity.fechaVencimiento|date('d-m-Y') }}</td>
+	            </tr>
+	            <tr>
+	                <th>Monto Pactado:</th>
+	                <td>${{ entity.montoPactado|number_format(0,',','.') }}.-</td>
+	            </tr>
+	            {% if entity.montoPagado is not null %}
+	            <tr>
+	                <th>Monto Pagado:</th>
+	                <td>${{ entity.montoPagado|number_format(0,',','.') }}-</td>
+	            </tr>
+	            {% endif %}
+	            {% if entity.fechaPago is not null %}
+	            <tr>
+	                <th>Fecha de Pago:</th>
+	                <td>{{ entity.fechaPago|date('d-m-Y') }}</td>
+	            </tr>
+	            {% endif %}
+	        </table>
+		  </div>
+		</div>
+	</div>
 </div>
-<a href="{{ path('cuota_ingresar_pago',{ id: entity.id }) }}" class="btn btn-primary" data-toggle="tooltip" title="Registra el pago de la cuota"><i class="icon-dollar"></i> Registrar Pago</a>
-<a href="{{ path('cuenta_show',{slug: entity.cuenta.slug }) }}" data-toggle="tooltip" title="Regresa a la vista general de la 'Cuenta'" class="btn btn-default">
-    <i class="icon-mail-reply"></i> Volver a la Cuenta
-</a>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="widget-container fluid-height">
+		  <div class="heading">
+		    <i class="fa fa-bars"></i>Acciones
+		  </div>
+		  <div class="widget-content padded">
+			{% if entity.fechaPago is null %}
+				<a href="{{ path('cuota_ingresar_pago',{ id: entity.id }) }}" class="btn btn-primary" data-toggle="tooltip" title="Registra el pago de la cuota"><i class="icon-dollar"></i> Registrar Pago</a>
+			{% endif %}
+			<a href="{{ path('cuenta_show',{slug: entity.cuenta.slug }) }}" data-toggle="tooltip" title="Regresa a la vista general de la 'Cuenta'" class="btn btn-default">
+				<i class="icon-mail-reply"></i> Volver a la Cuenta
+			</a>
+		  </div>
+		</div>
+	</div>
+</div>
 {% endblock %}

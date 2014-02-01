@@ -15,18 +15,16 @@ Lista de Cuentas registradas
               <div class="heading">
                 <i class="fa fa-{{ iconTipoCuenta }} pull-left" data-toggle="tooltip" title="{{ entity.tipocuenta.descripcion }}"></i>
                 {{ entity.nombre|truncate(15)}} 
+                <span class="label label-primary pull-right">{{ entity.cuotas|length() }}</span>
               </div>
               <div class="widget-content padded">
                	<div class="progress progress-striped active">
 	                <div class="progress-bar" style="width: 50%"></div>
                 </div>
-              	
-              	<a href="#" class="btn btn-primary-outline btn-xs" ><i class="fa fa-folder-open-o"></i></a>
-              	<a href="{{ path('cuenta_show',{slug:entity.slug} ) }}" class="btn btn-primary-outline btn-xs">Ver detalle</a>
-               
+                
                 <p class="text-info">{{ entity.descripcion }}</p>
               	
-              	 <small><span class="label label-primary">{{ entity.cuotas|length() }}</span> Cuotas Registradas</small>
+              	<a href="{{ path('cuenta_show',{slug:entity.slug} ) }}" class="btn btn-primary-outline btn-xs btn-block">Ver detalle</a>
               </div>
             </div>
         </div>
