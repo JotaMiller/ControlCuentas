@@ -3,7 +3,7 @@ cuenta:
     defaults: { _controller: "ControlBundle:Cuenta:index" }
 
 cuenta_show:
-    pattern:  /{slug}
+    pattern:  /{slug}/view
     defaults: { _controller: "ControlBundle:Cuenta:show" }
 
 cuenta_new:
