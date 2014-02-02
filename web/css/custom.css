@@ -10,3 +10,7 @@
 	margin: 10px;
 	float: left;
 }
+
+.widget-container .widget-content{
+	overflow: auto;
+}

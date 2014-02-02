@@ -1,0 +1,46 @@
+{% extends '::base.html.twig' %}
+
+{% block titulo %}
+{{ entity.nombre }}
+{% endblock %}
+
+{% block descripcion %}
+{{ entity.descripcion }}
+{% endblock %}
+
+{% block body -%}
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="widget-container fluid-height">
+		  <div class="heading">
+		    <i class="fa fa-bars"></i>Acciones
+		  </div>
+		  <div class="widget-content padded">
+		    <a href="#modal_registrar_pago" class="btn btn-primary pull-left" data-toggle="modal">Registrar Pago</a>
+		    <a href="{{ path('cuenta') }}" class="btn btn-default pull-left">Volver a la lista</a>
+		    {{ form(delete_form) }}
+		  </div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="modal_registrar_pago">
+	<div class="modal-dialog">
+    	<div class="modal-content">
+        	<div class="modal-header">
+            	<button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+                <h4 class="modal-title">Registrar Pago</h4>
+			</div>
+            <div class="modal-body">
+            	<h1>Welcome</h1>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet auctor purus, non imperdiet sapien dapibus non. Phasellus pretium rutrum elit in cursus. Donec ullamcorper nec massa vel mattis. Curabitur eros metus, dapibus quis est et, dapibus imperdiet dolor. Aenean ac aliquet dolor. Ut porta ultrices justo a tempor. Curabitur eget magna mattis risus accumsan aliquet et a lorem. Pellentesque hendrerit dapibus urna, adipiscing ultrices velit accumsan eget. Fusce eget ultrices turpis, vitae facilisis orci. Curabitur scelerisque consequat vulputate. Aenean felis orci, porttitor ut eros vel, egestas ultricies nunc. Duis suscipit elementum tincidunt.</p>
+            </div>
+            <div class="modal-footer">
+            	<button class="btn btn-primary" type="button">Guardar</button>
+            	<button class="btn btn-default-outline" data-dismiss="modal" type="button">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

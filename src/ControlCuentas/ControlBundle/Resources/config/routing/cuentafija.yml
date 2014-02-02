@@ -1,0 +1,30 @@
+cuentafija:
+    pattern:  /
+    defaults: { _controller: "ControlBundle:Cuentafija:index" }
+
+cuentafija_show:
+    pattern:  /{slug}
+    defaults: { _controller: "ControlBundle:Cuentafija:show" }
+
+cuentafija_new:
+    pattern:  /new
+    defaults: { _controller: "ControlBundle:Cuentafija:new" }
+
+cuentafija_create:
+    pattern:  /create
+    defaults: { _controller: "ControlBundle:Cuentafija:create" }
+    requirements: { _method: post }
+
+cuentafija_edit:
+    pattern:  /{slug}/edit
+    defaults: { _controller: "ControlBundle:Cuentafija:edit" }
+
+cuentafija_update:
+    pattern:  /{slug}/update
+    defaults: { _controller: "ControlBundle:Cuentafija:update" }
+    requirements: { _method: post|put }
+
+cuentafija_delete:
+    pattern:  /{slug}/delete
+    defaults: { _controller: "ControlBundle:Cuentafija:delete" }
+    requirements: { _method: post|delete }

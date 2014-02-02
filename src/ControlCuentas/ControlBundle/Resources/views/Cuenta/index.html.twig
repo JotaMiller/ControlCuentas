@@ -18,13 +18,11 @@ Lista de Cuentas registradas
 
 <div id="lista_cuentas">
 {% for entity in entities %}
-        {% set iconTipoCuenta = 'calendar' %}
-        {% if entity.tipocuenta.id == 2 %}{% set iconTipoCuenta = 'refresh' %}{% endif %}
-       
+        {% if entity.tipocuenta.num == 1 %}
 {#         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">#}
         	<div class="item categoria-{{ entity.categoria.id }} widget-container fluid-height">
               <div class="heading">
-                <i class="fa fa-{{ iconTipoCuenta }} pull-left" data-toggle="tooltip" title="{{ entity.tipocuenta.descripcion }}"></i>
+                <i class="fa fa-calendar pull-left" data-toggle="tooltip" title="{{ entity.tipocuenta.descripcion }}"></i>
                 {{ entity.nombre|truncate(15)}} 
                 <span class="label label-primary pull-right" >{{ entity.cuotas|length() }}</span>
               </div>
@@ -39,6 +37,26 @@ Lista de Cuentas registradas
               </div>
             </div>
 {#         </div>#}
+        {% endif %}
+        {% if entity.tipocuenta.num == 2 %}
+        	{#         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">#}
+        	<div class="item categoria-{{ entity.categoria.id }} widget-container fluid-height">
+              <div class="heading">
+                <i class="fa fa-refresh pull-left" data-toggle="tooltip" title="{{ entity.tipocuenta.descripcion }}"></i>
+                {{ entity.nombre|truncate(15)}} 
+                <span class="label label-primary pull-right" >&infin;</span>
+              </div>
+              <div class="widget-content padded">
+               	
+                
+                <p class="text-info">{{ entity.descripcion }}</p>
+              	
+              	<a href="{{ path('cuentafija_show',{slug:entity.slug} ) }}" class="btn btn-primary-outline btn-xs btn-block">Ver detalle</a>
+              </div>
+            </div>
+{#         </div>#}
+        {% endif %}
+       
 {% endfor %}
 </div>
 

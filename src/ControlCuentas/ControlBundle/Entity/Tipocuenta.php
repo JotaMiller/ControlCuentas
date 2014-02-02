@@ -33,6 +33,12 @@ class Tipocuenta
      * @ORM\OneToMany(targetEntity="ControlCuentas\ControlBundle\Entity\Cuenta", mappedBy="tipocuenta")
      */
     private $cuentas;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="ControlCuentas\ControlBundle\Entity\Cuentafija", mappedBy="tipocuenta")
+     */
+    private $cuentasfijas;
+    
     /**
      * Constructor
      */
@@ -156,5 +162,38 @@ class Tipocuenta
     public function getNum()
     {
         return $this->num;
+    }
+
+    /**
+     * Add cuentasfijas
+     *
+     * @param \ControlCuentas\ControlBundle\Entity\Cuentafija $cuentasfijas
+     * @return Tipocuenta
+     */
+    public function addCuentasfija(\ControlCuentas\ControlBundle\Entity\Cuentafija $cuentasfijas)
+    {
+        $this->cuentasfijas[] = $cuentasfijas;
+    
+        return $this;
+    }
+
+    /**
+     * Remove cuentasfijas
+     *
+     * @param \ControlCuentas\ControlBundle\Entity\Cuentafija $cuentasfijas
+     */
+    public function removeCuentasfija(\ControlCuentas\ControlBundle\Entity\Cuentafija $cuentasfijas)
+    {
+        $this->cuentasfijas->removeElement($cuentasfijas);
+    }
+
+    /**
+     * Get cuentasfijas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCuentasfijas()
+    {
+        return $this->cuentasfijas;
     }
 }

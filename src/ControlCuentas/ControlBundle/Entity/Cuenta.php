@@ -1,5 +1,7 @@
 <?php
+
 namespace ControlCuentas\ControlBundle\Entity;
+
 use Doctrine\ORM\Mapping AS ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 

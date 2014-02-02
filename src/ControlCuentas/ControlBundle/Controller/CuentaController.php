@@ -26,7 +26,13 @@ class CuentaController extends Controller
         $usuario = $this->getUser();
         
         $entities = $em->getRepository('ControlBundle:Cuenta')->findBy(array('usuario'=>$usuario->getId(),'activo'=>1));
-		$categorias = $em->getRepository('ControlBundle:Categoria')->findByUsuario($usuario);
+        $cuentas_fijas = $em->getRepository('ControlBundle:Cuentafija')->findBy(array('usuario'=>$usuario->getId(),'activo'=>1));
+		
+        foreach ($cuentas_fijas as $cuenta){
+        	array_push($entities, $cuenta);
+        }
+
+        $categorias = $em->getRepository('ControlBundle:Categoria')->findByUsuario($usuario);
 		
         return $this->render('ControlBundle:Cuenta:index.html.twig', array(
             'entities' => $entities,

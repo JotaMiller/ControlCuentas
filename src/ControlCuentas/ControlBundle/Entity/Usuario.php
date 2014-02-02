@@ -19,6 +19,11 @@ class Usuario extends BaseUser
      * @ORM\OneToMany(targetEntity="ControlCuentas\ControlBundle\Entity\Cuenta", mappedBy="usuario")
      */
     private $cuentas;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="ControlCuentas\ControlBundle\Entity\Cuentafija", mappedBy="usuario")
+     */
+    private $cuentasfijas;
 
     /** 
      * @ORM\OneToMany(targetEntity="ControlCuentas\ControlBundle\Entity\Categoria", mappedBy="usuario")
@@ -143,5 +148,38 @@ class Usuario extends BaseUser
     public function getFormapagos()
     {
         return $this->formapagos;
+    }
+
+    /**
+     * Add cuentasfijas
+     *
+     * @param \ControlCuentas\ControlBundle\Entity\Cuentafija $cuentasfijas
+     * @return Usuario
+     */
+    public function addCuentasfija(\ControlCuentas\ControlBundle\Entity\Cuentafija $cuentasfijas)
+    {
+        $this->cuentasfijas[] = $cuentasfijas;
+    
+        return $this;
+    }
+
+    /**
+     * Remove cuentasfijas
+     *
+     * @param \ControlCuentas\ControlBundle\Entity\Cuentafija $cuentasfijas
+     */
+    public function removeCuentasfija(\ControlCuentas\ControlBundle\Entity\Cuentafija $cuentasfijas)
+    {
+        $this->cuentasfijas->removeElement($cuentasfijas);
+    }
+
+    /**
+     * Get cuentasfijas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCuentasfijas()
+    {
+        return $this->cuentasfijas;
     }
 }

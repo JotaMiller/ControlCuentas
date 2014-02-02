@@ -28,6 +28,11 @@ class Categoria
      * @ORM\OneToMany(targetEntity="ControlCuentas\ControlBundle\Entity\Cuenta", mappedBy="categoria")
      */
     private $cuentas;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="ControlCuentas\ControlBundle\Entity\Cuentafija", mappedBy="categoria")
+     */
+    private $cuentasfijas;
 
     /** 
      * @ORM\ManyToOne(targetEntity="ControlCuentas\ControlBundle\Entity\Usuario", inversedBy="categorias")
@@ -157,5 +162,38 @@ class Categoria
     public function getUsuario()
     {
         return $this->usuario;
+    }
+
+    /**
+     * Add cuentasfijas
+     *
+     * @param \ControlCuentas\ControlBundle\Entity\Cuentafija $cuentasfijas
+     * @return Categoria
+     */
+    public function addCuentasfija(\ControlCuentas\ControlBundle\Entity\Cuentafija $cuentasfijas)
+    {
+        $this->cuentasfijas[] = $cuentasfijas;
+    
+        return $this;
+    }
+
+    /**
+     * Remove cuentasfijas
+     *
+     * @param \ControlCuentas\ControlBundle\Entity\Cuentafija $cuentasfijas
+     */
+    public function removeCuentasfija(\ControlCuentas\ControlBundle\Entity\Cuentafija $cuentasfijas)
+    {
+        $this->cuentasfijas->removeElement($cuentasfijas);
+    }
+
+    /**
+     * Get cuentasfijas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCuentasfijas()
+    {
+        return $this->cuentasfijas;
     }
 }

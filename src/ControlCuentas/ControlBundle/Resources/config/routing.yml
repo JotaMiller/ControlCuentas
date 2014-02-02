@@ -6,6 +6,10 @@ ControlBundle_cuenta:
     resource: "@ControlBundle/Resources/config/routing/cuenta.yml"
     prefix: /cuenta
     
+ControlBundle_cuentafija:
+    resource: "@ControlBundle/Resources/config/routing/cuentafija.yml"
+    prefix: /cuentafija
+    
 ControlBundle_categoria:
     resource: "@ControlBundle/Resources/config/routing/categoria.yml"
     prefix: /categoria
