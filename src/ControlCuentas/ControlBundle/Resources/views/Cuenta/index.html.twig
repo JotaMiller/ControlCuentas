@@ -4,18 +4,29 @@
 Lista de Cuentas registradas
 {% endblock %}
 
+{% block acciones %}
+<div class="btn-group filtros option-set" data-filter-group="categoria">
+  <button type="button" class="btn btn-primary selected" data-filter-value="">Todas</button>
+{% for categoria in categorias %}
+  <button type="button" class="btn btn-primary" data-filter-value=".categoria-{{ categoria.id }}">{{ categoria.nombre }}</button>
+{% endfor %}
+</div>
+
+{% endblock %}
+
 {% block body -%}
-<div class="row">
+
+<div id="lista_cuentas">
 {% for entity in entities %}
         {% set iconTipoCuenta = 'calendar' %}
         {% if entity.tipocuenta.id == 2 %}{% set iconTipoCuenta = 'refresh' %}{% endif %}
        
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        	<div class="widget-container fluid-height">
+{#         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">#}
+        	<div class="item categoria-{{ entity.categoria.id }} widget-container fluid-height">
               <div class="heading">
                 <i class="fa fa-{{ iconTipoCuenta }} pull-left" data-toggle="tooltip" title="{{ entity.tipocuenta.descripcion }}"></i>
                 {{ entity.nombre|truncate(15)}} 
-                <span class="label label-primary pull-right tooltip-trigger" data-placement="top" data-toggle="tooltip" data-original-title="Cantidad de Cuotas">{{ entity.cuotas|length() }}</span>
+                <span class="label label-primary pull-right" >{{ entity.cuotas|length() }}</span>
               </div>
               <div class="widget-content padded">
                	<div class="progress progress-striped active tooltip-trigger" data-placement="top" data-toggle="tooltip" data-original-title="{{ entity.getPorcentajeAvance|number_format(0) }}%">
@@ -27,8 +38,54 @@ Lista de Cuentas registradas
               	<a href="{{ path('cuenta_show',{slug:entity.slug} ) }}" class="btn btn-primary-outline btn-xs btn-block">Ver detalle</a>
               </div>
             </div>
-        </div>
+{#         </div>#}
 {% endfor %}
 </div>
 
+{% endblock %}
+
+{% block javascripts %}
+<script>
+	$(function(){
+	    
+	    var $container = $('#lista_cuentas'),
+	        filters = {};
+
+	    $container.isotope({
+	      itemSelector : '.item',
+	      masonry: {
+	        columnWidth: 30
+	      }
+	    });
+
+	    // filter buttons
+	    $('.filtros button').click(function(){
+	      var $this = $(this);
+	      // don't proceed if already selected
+	      if ( $this.hasClass('selected') ) {
+	        return;
+	      }
+	      
+	      var $optionSet = $this.parents('.option-set');
+	      // change selected class
+	      $optionSet.find('.selected').removeClass('selected');
+	      $this.addClass('selected');
+	      
+	      // store filter value in object
+	      // i.e. filters.color = 'red'
+	      var group = $optionSet.attr('data-filter-group');
+	      filters[ group ] = $this.attr('data-filter-value');
+	      // convert object into array
+	      var isoFilters = [];
+	      for ( var prop in filters ) {
+	        isoFilters.push( filters[ prop ] )
+	      }
+	      var selector = isoFilters.join('');
+	      $container.isotope({ filter: selector });
+
+	      return false;
+	    });
+
+	  });
+</script>
 {% endblock %}

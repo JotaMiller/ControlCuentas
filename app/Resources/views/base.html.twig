@@ -213,9 +213,16 @@
 		</div>
 		<!-- End Navigation -->
 		<div class="container-fluid main-content">
-			<div class="page-title">
-		        <h1>{% block titulo %}{% endblock %}</h1><h4>{% block descripcion %}{% endblock %}</h4>
-		    </div>
+			<div class="row">
+				<div class="col-md-7">
+					<div class="page-title">
+				        <h1>{% block titulo %}{% endblock %}</h1><h4>{% block descripcion %}{% endblock %}</h4>
+				    </div>
+				</div>
+				<div class="col-md-5">
+					{% block acciones %}{% endblock %}
+				</div>
+			</div>
 		{% block body %}{% endblock %}</div>
 	</div>
 	{% block javascripts %}{% endblock %}
