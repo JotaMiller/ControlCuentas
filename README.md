@@ -3,7 +3,7 @@ Control de Cuentas
 ========================
 
 Sistema de Control de Cuentas Personales
-
+----
 
 Pre-requisitos
 --------------
